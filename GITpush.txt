@@ -1,2 +1,5 @@
 git remote add Transportation https://github.com/080278/Transportation.git
 git push -u Transportation master
+
+git pull
+git push
