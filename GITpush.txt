@@ -1,3 +1,5 @@
+ssh-keygen -t rsa -C "<email address>"
+
 git remote add Transportation https://github.com/080278/Transportation.git
 git push -u Transportation master
 

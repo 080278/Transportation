@@ -1,0 +1,287 @@
+
+
+
+                          S U M M A R Y
+
+
+
+-B 5 -P 1000 -p 2 -D 30 10 10 10 40 -b 50 200 50 -C 52 -M 200 100 1020 100 20 -T 75000 150000 225000
+
+
+
+Population      = 1000
+Transported     = 1000
+Busses Created  = 29
+
+
+
+
+Bus-Stop: 1
+    Total-Person(s): 300
+    Average-Person(s): 15
+    Average-WaitTime : 26
+    Min-Per(s)       : 1
+    Max-Per(s)       : 17
+
+Bus-Stop: 2
+    Total-Person(s): 100
+    Average-Person(s): 6
+    Average-WaitTime : 23
+    Min-Per(s)       : 1
+    Max-Per(s)       : 24
+
+Bus-Stop: 3
+    Total-Person(s): 100
+    Average-Person(s): 3
+    Average-WaitTime : 33
+    Min-Per(s)       : 1
+    Max-Per(s)       : 29
+
+Bus-Stop: 4
+    Total-Person(s): 100
+    Average-Person(s): 38
+    Average-WaitTime : 677
+    Min-Per(s)       : 1
+    Max-Per(s)       : 100
+
+Bus-Stop: 5
+    Total-Person(s): 400
+    Average-Person(s): 32
+    Average-WaitTime : 45
+    Min-Per(s)       : 1
+    Max-Per(s)       : 206
+
+
+
+Bus: 6
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 84
+    Per(s) Transported  : 68
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 7
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 67
+    Per(s) Transported  : 64
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 8
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 45
+    Per(s) Transported  : 61
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 9
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 24
+    Per(s) Transported  : 66
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 10
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 4
+    Per(s) Transported  : 59
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 11
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 47
+    Min-Per(s)          : 0
+    Max-Per(s)          : 33
+
+Bus: 12
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 35
+    Min-Per(s)          : 0
+    Max-Per(s)          : 25
+
+Bus: 13
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 9
+    Min-Per(s)          : 0
+    Max-Per(s)          : 8
+
+Bus: 14
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 15
+    Min-Per(s)          : 0
+    Max-Per(s)          : 13
+
+Bus: 15
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 10
+    Min-Per(s)          : 0
+    Max-Per(s)          : 9
+
+Bus: 16
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 1
+    Min-Per(s)          : 0
+    Max-Per(s)          : 1
+
+Bus: 17
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 4
+    Min-Per(s)          : 0
+    Max-Per(s)          : 4
+
+Bus: 18
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 5
+    Min-Per(s)          : 0
+    Max-Per(s)          : 5
+
+Bus: 19
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 3
+    Min-Per(s)          : 0
+    Max-Per(s)          : 3
+
+Bus: 20
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 14
+    Min-Per(s)          : 0
+    Max-Per(s)          : 14
+
+Bus: 21
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 16
+    Min-Per(s)          : 0
+    Max-Per(s)          : 16
+
+Bus: 22
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 9
+    Min-Per(s)          : 0
+    Max-Per(s)          : 9
+
+Bus: 23
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 13
+    Min-Per(s)          : 0
+    Max-Per(s)          : 13
+
+Bus: 24
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 14
+    Min-Per(s)          : 0
+    Max-Per(s)          : 14
+
+Bus: 25
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 13
+    Min-Per(s)          : 0
+    Max-Per(s)          : 13
+
+Bus: 26
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 15
+    Min-Per(s)          : 0
+    Max-Per(s)          : 15
+
+Bus: 27
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 11
+    Min-Per(s)          : 0
+    Max-Per(s)          : 11
+
+Bus: 28
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 10
+    Min-Per(s)          : 0
+    Max-Per(s)          : 10
+
+Bus: 29
+    Trip(s)             : 2
+    Empty-Trip(s)       : 1
+    Left at Stop        : 0
+    Per(s) Transported  : 16
+    Min-Per(s)          : 0
+    Max-Per(s)          : 16
+
+Bus: 1
+    Trip(s)             : 3
+    Empty-Trip(s)       : 1
+    Left at Stop        : 277
+    Per(s) Transported  : 102
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 2
+    Trip(s)             : 3
+    Empty-Trip(s)       : 1
+    Left at Stop        : 233
+    Per(s) Transported  : 83
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 3
+    Trip(s)             : 3
+    Empty-Trip(s)       : 1
+    Left at Stop        : 191
+    Per(s) Transported  : 83
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 4
+    Trip(s)             : 3
+    Empty-Trip(s)       : 1
+    Left at Stop        : 150
+    Per(s) Transported  : 80
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
+Bus: 5
+    Trip(s)             : 3
+    Empty-Trip(s)       : 1
+    Left at Stop        : 110
+    Per(s) Transported  : 74
+    Min-Per(s)          : 0
+    Max-Per(s)          : 52
+
