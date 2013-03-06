@@ -357,9 +357,9 @@ busStop.SetAverageNumberOfPersons();
 //set empty flag to false
 this.SetEmpty(false);
             
-screen.WriteToFile("Time:,"+GetFirstTicks()+", --> ON"+", GetOn: "+ (got.GetStartBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());            
+screen.WriteToFile("Time:,"+GetFirstTicks()+", --> ON"+", GetOn: "+ (got.GetStartBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+(got.GetPersonNumber()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());            
 if(verbose)
-    System.out.println("Time:,"+GetFirstTicks()+", --> ON"+", GetOn: "+ (got.GetStartBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
+    System.out.println("Time:,"+GetFirstTicks()+", --> ON"+", GetOn: "+ (got.GetStartBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+(got.GetPersonNumber()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
         }
         //get iterator for the BusStop
         Iterator iter = busStop.GetIterator();
@@ -398,10 +398,10 @@ if(verbose)
 got.SetOffBusTicks(this.firstTicks);  
 screen.WriteToFile("Time:,"+GetFirstTicks()+", --> OFF"+", GetOff: "+ (got.GetStopBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOn: "+ (got.GetStartBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
 if(verbose)
-    System.out.println("Time:,"+GetFirstTicks()+", --> OFF"+", GetOff: "+ (got.GetStopBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOn: "+ (got.GetStartBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
+    System.out.println("Time:,"+GetFirstTicks()+", --> OFF"+", GetOff: "+ (got.GetStopBusStop()+1)+", Bus #"+GetBusNumber()+", person #"+(got.GetPersonNumber()+1)+", GetOn: "+ (got.GetStartBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
 //System.out.println("Time:"+GetFirstTicks()+" Bus #"+GetBusNumber()+", PASSENGERS: "+ passengers.size()+", person #"+got.GetPersonNumber()+", GetOff: "+ busStop.GetBusStopNumber());                
 //write statistics to file
-outBusStopActivity.WriteToFile(got.GetPersonNumber()+","+got.GetFirstTicks()+","+got.GetStartBusStop()+","+got.GetStopBusStop()+","+got.GetOnBusTicks()+","+got.GetOffBusTicks()+","+got.GetWaitTime()+","+got.GetLeftByBus());
+outBusStopActivity.WriteToFile((got.GetPersonNumber()+1)+","+got.GetFirstTicks()+","+(got.GetStartBusStop()+1)+","+(got.GetStopBusStop()+1)+","+got.GetOnBusTicks()+","+got.GetOffBusTicks()+","+got.GetWaitTime()+","+got.GetLeftByBus());
 
                 //remove passenger
                 iter.remove();
@@ -445,11 +445,11 @@ outBusStopActivity.WriteToFile(got.GetPersonNumber()+","+got.GetFirstTicks()+","
             got = (Person)iter.next();
 //set time person got off the bus                
 got.SetOffBusTicks(this.firstTicks);   
-screen.WriteToFile("Time:,"+GetFirstTicks()+", --> END OF ROUTE"+" Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOn: "+ (got.GetStartBusStop()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
+screen.WriteToFile("Time:,"+GetFirstTicks()+", --> END OF ROUTE"+" Bus #"+GetBusNumber()+", person #"+(got.GetPersonNumber()+1)+", GetOn: "+ (got.GetStartBusStop()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
 if(verbose)
-    System.out.println("Time:,"+GetFirstTicks()+", --> END OF ROUTE"+" Bus #"+GetBusNumber()+", person #"+got.GetPersonNumber()+", GetOn: "+ (got.GetStartBusStop()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
+    System.out.println("Time:,"+GetFirstTicks()+", --> END OF ROUTE"+" Bus #"+GetBusNumber()+", person #"+(got.GetPersonNumber()+1)+", GetOn: "+ (got.GetStartBusStop()+1)+", GetOff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", PASSENGERS: "+ passengers.size());
 //System.out.println("Time: "+GetFirstTicks()+", PASSENGERS-> Kick: "+ passengers.size()+", person #"+got.GetPersonNumber()+", Getoff: "+ (got.GetStopBusStop()+1)+", Priority: "+got.GetPriority()+", waitTime: "+got.GetWaitTime());                
-outBusStopActivity.WriteToFile(got.GetPersonNumber()+","+got.GetFirstTicks()+","+got.GetStartBusStop()+","+got.GetStopBusStop()+","+got.GetOnBusTicks()+","+got.GetOffBusTicks()+","+got.GetWaitTime()+","+got.GetLeftByBus());
+outBusStopActivity.WriteToFile((got.GetPersonNumber()+1)+","+got.GetFirstTicks()+","+(got.GetStartBusStop()+1)+","+(got.GetStopBusStop()+1)+","+got.GetOnBusTicks()+","+got.GetOffBusTicks()+","+got.GetWaitTime()+","+got.GetLeftByBus());
             //drop passengers
             iter.remove();
             //update total transported

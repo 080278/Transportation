@@ -1,3 +1,4 @@
+
 /*
  * Author Name: David A. Flemming
  * Date: 2013-02-20
@@ -21,10 +22,10 @@ public class Exponential
     private int mean;
 
     //Construct a new Exponential object.
-    public Exponential(int mean) 
+    public Exponential(int mean, Random rnd) 
     {
 	this.mean = mean;
-	rnd = new Random();
+        this.rnd = rnd;
     }
     
     //Generate the next random selection.
@@ -41,8 +42,9 @@ public class Exponential
         
 	int n = m; //3000;
 	
+        Random tmpRnd = new Random();
 	
-	Exponential p0 = new Exponential(meanGoal);
+	Exponential p0 = new Exponential(meanGoal, tmpRnd);
 
 	System.out.println("First " + m + " of " + n + 
 			   " samples from an Exponential distribution\n" +

@@ -38,7 +38,15 @@ import java.util.*;
 public class Simulation {
     //holds verbose status
     boolean verbose = false;
-    
+    //holds the seed value
+    long seed;
+    //start bustop random generator
+    Random rndStart;
+    //stop bustop random generator
+    Random rndStop;
+    //people Temp exponential random generator
+    Random tmpExp;
+            
     //holds the Person CREATED events
     OutputFile outPerson;
     //holds the Bus CREATED events
@@ -114,8 +122,9 @@ public class Simulation {
     //Person's Arrival
     Exponential [] peopleArrival;
     
+    
     //constructor
-    public Simulation(String[] config)
+    public Simulation(String[] config, boolean verbose)
     {
         //set the output Person file
         outPerson = new OutputFile("personCreated.txt");
@@ -148,6 +157,8 @@ public class Simulation {
         //Bus file header
         summaryBus.WriteToFile("Bus, Trips, Empty-Trip(s), Left-At-BusStop, Transported, Min-Per(s), Max-Per(s)");
         
+        //set verbose
+        this.verbose = verbose;
         //set time
         time = 0;
         //set selected bus stop to none
@@ -173,14 +184,14 @@ public class Simulation {
         
         
     }
-
+//******************************************************************************
+//                          BUS-STOP Selection
     public int GetNextSelectedBusStop() 
     {
-        Random st = new Random();
-
-        //set a random bus stop to get off at
-        SetSelectedBusStop(st.nextInt(busStop.length));
-
+         
+        //set a random bus stop to Start at
+        SetSelectedBusStop(rndStart.nextInt(busStop.length));
+//System.out.println("Start: "+(GetSelectedBusStop()+1));
         //return the stop chosen
         return GetSelectedBusStop();
     }
@@ -188,14 +199,17 @@ public class Simulation {
     
     public int GetNextStopBusStop() 
     {
-        Random st = new Random();
 
+     
         //set a random bus stop to get off at
-        SetStopBusStop(st.nextInt(busStop.length));
-        
+        SetStopBusStop((GetSelectedBusStop()+1)+rndStop.nextInt(busStop.length-GetSelectedBusStop()));
+        //SetStopBusStop(rndStop.nextInt(busStop.length+1)+GetSelectedBusStop());
+//System.out.println("Stop: "+(GetStopBusStop()+1))        ;
         //return the stop chosen
         return GetStopBusStop();
     }
+//******************************************************************************    
+    
     
     
     //get verbose
@@ -262,6 +276,13 @@ public class Simulation {
     //create entities
     public void CreateEntities()
     {
+        //initialize random start Bus-Stop
+        rndStart = new Random(seed);
+        //initialize random stop Bus-Stop
+        rndStop = new Random(seed);
+        //initialize random used for the Exponential distribution
+        tmpExp = new Random(seed);
+        
         //create the bus stops
         busStop = new BusStop[totalBusStops];    
         //create paeole at bus stops arrival distibution
@@ -281,7 +302,7 @@ public class Simulation {
             //initialize each bus stop
             busStop[x] = new BusStop(x);
             //initialize each bus stop arrival mean at person creation interval
-            peopleArrival[x] = new Exponential(personArrivalInterval);
+            peopleArrival[x] = new Exponential(personArrivalInterval, tmpExp);
             
             if((x+1) != totalBusStops)
             {
@@ -307,7 +328,10 @@ public class Simulation {
     
     //get an array of data
     public void ConfigSetup() throws Exception
-    {     
+    {   
+        //set default for seed specified
+        boolean seedSpecified = false;
+        
         //iterate options
         for(int x=0;x<config.length;x++)
         {
@@ -334,13 +358,18 @@ public class Simulation {
                         break;
                     case 'T':
                         break;
+                    case 'S':
+                    {
+                        seedSpecified = true;
+                        break;
+                    }
                     default:
                         throw new Exception("Invalid Option specified");
                 }
             }
         }
         
-        if(config.length == 9)
+        if(config.length >= 9)
         {
             //iterate options
             for(int x=0;x<config.length;x++)
@@ -470,11 +499,33 @@ public class Simulation {
                     }
 
                 }
+                else if(s[0].compareTo("S") == 0)
+                {
+                    //ensure that seed value for the random generator is included
+                    if(s.length-1 == 1)
+                    {
+                        //get seed value
+                        seed = Integer.parseInt(s[1]);
+                    }
+                    else
+                    {
+                        throw new Exception("Check single integer eg. 'S 123456' for: Seed Value(single number)");
+                    }
+                }
+                
+                
             }
         }
         else
         {
-            throw new Exception("All options have not been specified in the config file.");
+            throw new Exception("Error in the config file. ");
+        }
+        
+        //create a seed value, if seed not specified
+        if(seedSpecified == false)
+        {
+            //default behavior for random seed generation
+            seed = System.currentTimeMillis();
         }
     }
     
@@ -489,6 +540,8 @@ public class Simulation {
     //run the simulation
     public void RunSimulation()
     {
+        
+        
         //initialize the ready queue
         readyQueue = new PriorityQueue<Object>();
         //initialize the finish queue
@@ -550,6 +603,8 @@ public class Simulation {
             }
             else if(current instanceof Person)
             {
+if(verbose)
+    System.out.println("Time:," + time + ", Stop #: " + (((Person)current).GetStartBusStop()+1)+", Person("+(((Person)current).GetPersonNumber()+1)+") Arrived");
 
                 //put the person at their bus stop
                 busStop[((Person)current).GetStartBusStop()].AddPerson((Person)current);
@@ -751,31 +806,53 @@ summary.WriteToFile("    Total-Person(s): "+b.GetTotalPersonsWaited());
             
         }
         
+        System.out.println("Bus-Stop: ("+(busStop.length+1)+") is the T E R M I N A L --> End of Route");
+        
         System.out.println("\n");
         summary.WriteToFile("\n");
+        
         Iterator bu = finishQueue.iterator();
+        
+        
         Bus b;
+        int cnt =1;
+        //iterate the bus listing
         while(bu.hasNext())
         {
-            b = (Bus)bu.next();
-            System.out.println("Bus: "+b.GetBusNumber());
-            summary.WriteToFile("Bus: "+b.GetBusNumber());
-            System.out.println("    Trip(s)             : "+b.GetTrips());
-            summary.WriteToFile("    Trip(s)             : "+b.GetTrips());
-            System.out.println("    Empty-Trip(s)       : "+b.GetEmptyTrips());
-            summary.WriteToFile("    Empty-Trip(s)       : "+b.GetEmptyTrips());
-            System.out.println("    Left at Stop        : "+b.GetTotalLeftAtBusStop());
-            summary.WriteToFile("    Left at Stop        : "+b.GetTotalLeftAtBusStop());
-            System.out.println("    Per(s) Transported  : "+b.GetAccumulatedPassangersTransported());
-            summary.WriteToFile("    Per(s) Transported  : "+b.GetAccumulatedPassangersTransported());
-            System.out.println("    Min-Per(s)          : "+b.GetMinimumPassenger());
-            summary.WriteToFile("    Min-Per(s)          : "+b.GetMinimumPassenger());
-            System.out.println("    Max-Per(s)          : "+b.GetMaximumPassenger()+"\n");
-            summary.WriteToFile("    Max-Per(s)          : "+b.GetMaximumPassenger()+"\n");
-            
-            summaryBus.WriteToFile(b.GetBusNumber()+","+b.GetTrips()+","+b.GetEmptyTrips()
-            +","+b.GetTotalLeftAtBusStop()+","+b.GetAccumulatedPassangersTransported()
-            +","+b.GetMinimumPassenger()+","+b.GetMaximumPassenger()+"\n");
+            //print sorted list of busses
+            Iterator bu1 = finishQueue.iterator();
+            while(bu1.hasNext())
+            {   
+                Bus bc = ((Bus)bu1.next());
+                if(bc.GetBusNumber() == cnt)
+                {
+                    b = bc;
+                    System.out.println("Bus: "+b.GetBusNumber());
+                    summary.WriteToFile("Bus: "+b.GetBusNumber());
+                    System.out.println("    Trip(s)             : "+b.GetTrips());
+                    summary.WriteToFile("    Trip(s)             : "+b.GetTrips());
+                    System.out.println("    Empty-Trip(s)       : "+b.GetEmptyTrips());
+                    summary.WriteToFile("    Empty-Trip(s)       : "+b.GetEmptyTrips());
+                    System.out.println("    Left at Stop        : "+b.GetTotalLeftAtBusStop());
+                    summary.WriteToFile("    Left at Stop        : "+b.GetTotalLeftAtBusStop());
+                    System.out.println("    Per(s) Transported  : "+b.GetAccumulatedPassangersTransported());
+                    summary.WriteToFile("    Per(s) Transported  : "+b.GetAccumulatedPassangersTransported());
+                    System.out.println("    Min-Per(s)          : "+b.GetMinimumPassenger());
+                    summary.WriteToFile("    Min-Per(s)          : "+b.GetMinimumPassenger());
+                    System.out.println("    Max-Per(s)          : "+b.GetMaximumPassenger()+"\n");
+                    summary.WriteToFile("    Max-Per(s)          : "+b.GetMaximumPassenger()+"\n");
+
+                    summaryBus.WriteToFile(b.GetBusNumber()+","+b.GetTrips()+","+b.GetEmptyTrips()
+                    +","+b.GetTotalLeftAtBusStop()+","+b.GetAccumulatedPassangersTransported()
+                    +","+b.GetMinimumPassenger()+","+b.GetMaximumPassenger()+"\n");
+                }
+            }
+            cnt += 1;
+            //check all busses stats printed
+            if(cnt>GetNumberOfBussesCreated())
+            {
+                break;
+            }
         }
         //close Person CREATED output files
         outPerson.CloseFile();
@@ -795,6 +872,7 @@ summary.WriteToFile("    Total-Person(s): "+b.GetTotalPersonsWaited());
         //close Bus summary file
         summaryBus.CloseFile();
     }
+    
     
     //deliver person to bus stop
     public void DeliverToBusStop(Person person)
@@ -817,15 +895,72 @@ summary.WriteToFile("    Total-Person(s): "+b.GetTotalPersonsWaited());
     
     public static void main(String[] args)
     {
-        //get the config file
-        ConfigFile config = new ConfigFile("config.txt");
-        //read the cofig file and extract options
-        if(config.ReadFile() == true)
+        //reads config file
+        ConfigFile config;
+        //holds verbose flag
+        boolean verbose = false;
+        
+        if(args.length < 1)
         {
-            System.out.println(config.GetStringData());
-            //pass the options to the simulation
-            new Simulation(config.GetData());
+            System.out.println("Usage: java Simulation <filename> <option: verbose> eg. java Simulation test.txt -v");
+        }
+        else if(args.length ==1)
+        {
             
+            //get the config file
+            config = new ConfigFile(args[0]);
+            //read the cofig file and extract options
+            if(config.ReadFile() == true)
+            {
+                System.out.println(config.GetStringData());
+                //pass the options to the simulation
+                new Simulation(config.GetData(), verbose);
+
+            }
+                
+        }
+        else if (args.length == 2)
+        {
+            if(args[0].compareToIgnoreCase("-v") != 0)
+            {
+                //get the config file
+                config = new ConfigFile(args[0]);
+                if(args[1].compareToIgnoreCase("-v") == 0)
+                    //set verbose
+                    verbose = true;
+                else
+                {
+                    System.out.println("Error: Invalid option specified!");
+                    return;
+                }
+            }
+            else
+            {
+                //get the config file
+                config = new ConfigFile(args[1]);
+                if(args[0].compareToIgnoreCase("-v") == 0)
+                    //set verbose
+                    verbose = true;
+                else
+                {
+                    System.out.println("Error: Invalid option specified!");
+                    return;
+                }
+            }
+            
+            
+            //read the cofig file and extract options
+            if(config.ReadFile() == true)
+            {
+                System.out.println(config.GetStringData());
+                //pass the options to the simulation
+                new Simulation(config.GetData(), verbose);
+
+            }
+        }
+        else
+        {
+            System.out.println("Error:  *** Too many parameters *** --> Usage: java Simulation <filename> <option: verbose> eg. java Simulation test.txt verbose");
         }
     }
     
